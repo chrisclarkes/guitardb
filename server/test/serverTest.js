@@ -9,7 +9,7 @@ describe('basic express setup', () => {
     let server;
     let app;
 
-    beforeEach((done) => {
+    beforeEach(done => {
         server = new Server();
         server.start().then(listeningApp => {
             app = listeningApp;
@@ -23,7 +23,7 @@ describe('basic express setup', () => {
         }
     })
 
-    it('should get "yo" response', (done) => {
+    it('should get "yo" response', done => {
         request(app)
             .get('/')
             .expect(200, 'yo', done);
