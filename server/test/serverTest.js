@@ -9,9 +9,12 @@ describe('basic express setup', () => {
     let server;
     let app;
 
-    beforeEach(() => {
+    beforeEach((done) => {
         server = new Server();
-        app = server.start();
+        server.start().then(listeningApp => {
+            app = listeningApp;
+            done();
+        });
     });
 
     afterEach(() => {
