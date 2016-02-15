@@ -16,15 +16,9 @@ class GuitarStore {
 
     add(serialNumber, make, model, year, factory) {
         let guitarDeferred = Q.defer();
-        let guitar = new Guitar({
-            serialNumber: serialNumber,
-            make: make,
-            model: model,
-            year: year,
-            factory: factory
-        });
+        let guitar = new Guitar({serialNumber, make, model, year, factory});
 
-        guitar.save(function(err, guitar) {
+        guitar.save((err, guitar) => {
             if (err) {
                 guitarDeferred.reject(err);
             } else {
@@ -36,7 +30,7 @@ class GuitarStore {
 
     findBySerialNumber(serialNumber) {
         let guitarDeferred = Q.defer();
-        Guitar.findOne({ serialNumber: serialNumber }, function(err, guitar) {
+        Guitar.findOne({ serialNumber }, (err, guitar) => {
             if (err) {
                 guitarDeferred.reject(err);
             } else {
