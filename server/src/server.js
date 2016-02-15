@@ -5,14 +5,13 @@ const MONGO_URL = 'mongodb://localhost/guitardb';
 
 let express = require('express');
 let mongoose = require('mongoose');
-let GuitarStore = require('./guitarStore');
+let guitarRouter = require('./guitarRouter');
 let app = express();
 let Q = require('q');
 
 class Server {
     constructor() {
         this._listeningPromise = Q.defer();
-        this._store = new GuitarStore();
         app.set('views', __dirname + '/views');
         app.set('view engine', 'jsx');
         app.engine('jsx', require('express-react-views').createEngine());
@@ -25,19 +24,7 @@ class Server {
                 title: 'Home'
             });
         });
-        app.get('/guitar/:serialNumber', (req, res) => {
-            this._store.findBySerialNumber(req.params.serialNumber).then(guitar => {
-                res.json({ 
-                    serialNumber: guitar.serialNumber,
-                    make: guitar.make,
-                    model: guitar.model,
-                    year: guitar.year,
-                    factory: guitar.factory
-                });   
-            }).fail(err => {
-                res.send(err);
-            });
-        });
+        app.use('/guitar', guitarRouter);
     }
 
     start() {
