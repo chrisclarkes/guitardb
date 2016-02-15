@@ -15,10 +15,10 @@ class Server {
         app.set('views', __dirname + '/views');
         app.set('view engine', 'jsx');
         app.engine('jsx', require('express-react-views').createEngine());
-        app.get('/', (req, res) => {
+        app.get('/yo', (req, res) => {
             res.send('yo');
         });
-        app.get('/index', (req, res) => {
+        app.get('/', (req, res) => {
             res.render('index', { 
                 message: 'hey',
                 title: 'Home'

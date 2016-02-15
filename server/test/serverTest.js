@@ -33,9 +33,19 @@ describe('server', () => {
         }
     })
 
-    it('should get "yo" response', done => {
+    it('should get "yo" response on /yo', done => {
+        request(app)
+            .get('/yo')
+            .expect(200, 'yo', done);
+    });
+
+    it('should get homepage on /', function(done) {
+        this.timeout(10000); // server-side React is slow on first hit - maybe replace
+
         request(app)
             .get('/')
-            .expect(200, 'yo', done);
+            .expect(200)
+            .expect('Content-Type', /html/)
+            .expect(/Home/, done);
     });
 });
