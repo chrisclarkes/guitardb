@@ -4,11 +4,18 @@ let GuitarStore = require('../src/guitarStore');
 let assert = require('chai').assert;
 let mongoose = require('mongoose');
 let mockgoose = require('mockgoose');
-mockgoose(mongoose);
 
 describe('GuitarStore', function() {
 
     let guitarStore;
+
+    before(() => {
+        mockgoose(mongoose);
+    });
+
+    after(done => {
+        mongoose.unmock(done);
+    });
 
     beforeEach(done => {
         guitarStore = new GuitarStore();
@@ -20,7 +27,7 @@ describe('GuitarStore', function() {
     afterEach(done => {
         mongoose.disconnect(err => {
             done(err);
-        })
+        });
     });
 
     it('adds a guitar', done => {
