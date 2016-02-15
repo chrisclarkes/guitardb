@@ -14,21 +14,28 @@ let Guitar = mongoose.model('Guitar', guitarSchema);
 
 class GuitarStore {
 
-    add(serialNumber, make, model, year, factory) {
+    add (serialNumber, make, model, year, factory) {
         let guitarDeferred = Q.defer();
         let guitar = new Guitar({serialNumber, make, model, year, factory});
 
-        guitar.save((err, guitar) => {
-            if (err) {
-                guitarDeferred.reject(err);
+        this.findBySerialNumber(serialNumber).then(result => {
+            if (result) {
+                guitarDeferred.reject(`Guitar with serial# ${serialNumber} already exists`);
             } else {
-                guitarDeferred.resolve(guitar);
+                guitar.save((err, saved) => {
+                    if (err) {
+                        guitarDeferred.reject(err);
+                    } else {
+                        guitarDeferred.resolve(saved);
+                    }
+                });
             }
         });
+
         return guitarDeferred.promise;
     }
 
-    findBySerialNumber(serialNumber) {
+    findBySerialNumber (serialNumber) {
         let guitarDeferred = Q.defer();
         Guitar.findOne({ serialNumber }, (err, guitar) => {
             if (err) {
