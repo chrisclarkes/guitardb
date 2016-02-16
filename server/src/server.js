@@ -32,7 +32,6 @@ class Server {
     start() {
         mongoose.connect(MONGO_URL, err => {
             this._server = app.listen(PORT, () => {
-                console.log(`Server listening on http://localhost:${PORT}/`);
                 this._listeningPromise.resolve(app);
             });
         });
@@ -46,6 +45,10 @@ class Server {
                 this._server.close();
             });
         }
+    }
+
+    get port() {
+        return PORT;
     }
 };
 

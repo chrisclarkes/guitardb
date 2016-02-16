@@ -8,7 +8,7 @@ var Index = React.createClass({
       <DefaultLayout title={this.props.title}>
         <div className="search-content center">
             <h1 className="center">{this.props.message}</h1>
-            <SearchBox placeholderText="serial number e.g. MX123123" />
+            <SearchBox placeholderText="serial number e.g. MX12151713" />
         </div>
       </DefaultLayout>
     );
