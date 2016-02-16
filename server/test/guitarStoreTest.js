@@ -42,6 +42,13 @@ describe('GuitarStore', function() {
         });
     });
 
+    it('findBySerialNumber resolves to null if no guitar found', done => {
+        guitarStore.findBySerialNumber('SHOULD_NOT_EXIST').then(guitar => {
+            assert.isNull(guitar);
+            done();
+        });
+    });
+
     it('rejects the add promise if add is called with an already existing guitar', done => {
         guitarStore.add('MX325235', 'Fender', 'Stratocaster', 2011, 'Mexico').then(() => {
             guitarStore.add('MX325235', 'Fender', 'Stratocaster', 2011, 'Mexico').fail(() => done());
