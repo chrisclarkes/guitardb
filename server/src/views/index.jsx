@@ -1,5 +1,6 @@
 var React = require('react');
 var DefaultLayout = require('./layouts/default');
+var SearchBox = require('./searchBox');
 
 var Index = React.createClass({
   render: function() {
@@ -7,8 +8,7 @@ var Index = React.createClass({
       <DefaultLayout title={this.props.title}>
         <div className="search-content center">
             <h1 className="center">{this.props.message}</h1>
-            <input className="search-box" placeholder="serial number e.g. MX123123"></input>
-            <button className="button">Search</button>
+            <SearchBox placeholderText="serial number e.g. MX123123" />
         </div>
       </DefaultLayout>
     );
