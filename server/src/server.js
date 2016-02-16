@@ -7,29 +7,25 @@ let express = require('express');
 let mongoose = require('mongoose');
 let guitarRouter = require('./guitarRouter');
 let lessMiddleware = require('less-middleware');
+let expressConfig = require('./expressConfig');
 let Q = require('q');
 let app = express();
 
 class Server {
     constructor() {
         this._listeningPromise = Q.defer();
-        app.use(lessMiddleware(__dirname, {
-            force: true
-        }));
-        app.use('/styles', express.static(__dirname + '/styles'));
-        app.set('views', __dirname + '/views');
-        app.set('view engine', 'jsx');
-        app.engine('jsx', require('express-react-views').createEngine());
+        expressConfig(app);
+        this._addRoutes();
+    }
 
-        app.get('/yo', (req, res) => {
-            res.send('yo');
-        });
+    _addRoutes() {
         app.get('/', (req, res) => {
             res.render('index', { 
                 message: 'Guitar DB',
                 title: 'Home'
             });
         });
+        app.get('/yo', (req, res) => res.send('yo'));
         app.use('/guitar', guitarRouter);
     }
 
