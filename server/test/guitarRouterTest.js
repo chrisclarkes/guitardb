@@ -51,4 +51,13 @@ describe('guitarRouter', () => {
                }, done);
         });
     });
+
+
+    it('should return 404 and empty json if no guitar found', done => {
+            request(app)
+                .get('/guitar/SERIAL_NUMBER_NO_EXIST')
+                .expect(404)
+                .expect('Content-type', /json/)
+                .expect({}, done);
+    });
 });
