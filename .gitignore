@@ -1,3 +1,6 @@
+# Compiled LESS files
+server/src/styles/*.css
+
 # Logs
 logs
 *.log
