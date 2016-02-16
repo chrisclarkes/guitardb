@@ -5,7 +5,7 @@ var SearchBox = React.createClass({
     return (
         <div>
             <input className="search-box" placeholder={this.props.placeholderText}></input>
-            <button className="button">Search</button>
+            <button className="search-button">Search</button>
         </div>
     );
   }

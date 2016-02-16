@@ -20,7 +20,7 @@ class Server {
 
     _addRoutes() {
         app.get('/', (req, res) => {
-            res.render('index', { 
+            res.render('index', {
                 message: 'Guitar DB',
                 title: 'Home'
             });
